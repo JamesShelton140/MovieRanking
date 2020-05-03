@@ -107,27 +107,40 @@ public class MovieRanking {
     	//initiate scanner
     	scanner = new Scanner(System.in);
     	
-    	while(makingComparisons = true) {
+    	while(makingComparisons == true) {
     		
     		Movie movie1 = generateRandomMovie();
-    		Movie movie2 = generateRandomMovie();
+    		Movie movie2 = movie1;
     		
-    		String selectedOption = "exit";
+    		while(movie1 == movie2) {
+    			movie2 = generateRandomMovie();
+    		}
+    		
+    		System.out.println("\n" + "Which movie do you prefer?");
+    		System.out.println("1. " + movie1.getTitle());
+    		System.out.println("2. " + movie2.getTitle());
+    		System.out.println("exit. Return to main menu without comparing");
+    		
+    		String selectedOption = "exit";//"exit"
     		
     		selectedOption = Input.nextString(scanner);
     		
     		//Act on user input
 			switch (selectedOption) {
 				case "1":
+					makeComparison(movie1, movie2, true);
 					break;
 					
-				case "exit":
-			 		System.out.println("Exiting!");
+				case "2":
+					makeComparison(movie1, movie2, false);
+					break;
+					
+				case "exit"://"exit"
 					makingComparisons = false;
 			 		break;
 			 		
 			 	default:
-			 		System.out.println("Invalid input! Please try again.");
+			 		System.out.println("\n" + "Invalid input! Please try again.");
 			 }
     		
     	}
