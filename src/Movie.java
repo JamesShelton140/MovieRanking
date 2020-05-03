@@ -61,6 +61,10 @@ public class Movie implements Comparable<Movie>{
 		this.comparisons = comparisons;
 	}
 	
+	public void incrementComparisons() {
+		this.comparisons++;
+	}
+	
 	/*
 	 * Other methods
 	 */

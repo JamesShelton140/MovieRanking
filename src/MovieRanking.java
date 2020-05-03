@@ -4,6 +4,7 @@ import java.util.*;
 public class MovieRanking {
 	
 	private ArrayList<Movie> movieList = new ArrayList<Movie>();
+	static Scanner scanner;
 
 	public MovieRanking() {
 		
@@ -18,7 +19,7 @@ public class MovieRanking {
 	}
 	
 	// Function to calculate the Probability 
-    static float Probability(float rating1,  
+    private static float Probability(float rating1,  
                                float rating2) 
     { 
         return 1.0f * 1.0f / (1 + 1.0f *  
@@ -30,7 +31,7 @@ public class MovieRanking {
     // K is a constant. 
     // d determines whether Player A wins 
     // or Player B.  
-    static float[] updateEloRating(float Ra, float Rb, 
+    private static float[] updateEloRating(float Ra, float Rb, 
                             int K, boolean d) 
     {  
       
@@ -60,20 +61,85 @@ public class MovieRanking {
         return newRatings;
     }
     
-    static void makeComparison(Movie movie1, Movie movie2, boolean movie1Won) {
+    private static void makeComparison(Movie movie1, Movie movie2, boolean movie1Won) {
     	int k = 50;
     	
     	float[] newRatings = updateEloRating(movie1.getRating(), movie2.getRating(), k, movie1Won);
     	
     	movie1.setRating(newRatings[0]);
+    	movie1.incrementComparisons();
+    	
     	movie2.setRating(newRatings[1]);
+    	movie2.incrementComparisons();
+    }
+    
+    private Movie generateRandomMovie() {
+    	
+    	//find highest number of comparisons
+    	int minComparisons = this.getMovieList().get(0).getComparisons();
+    	int maxComparisons = 0;
+    	for(int i = 0; i < this.getMovieList().size(); i++) {
+    		int comparisons = this.getMovieList().get(i).getComparisons();
+    		if( comparisons > maxComparisons) {
+    			maxComparisons = comparisons;
+    		}
+    		if(comparisons < minComparisons) {
+    			minComparisons = comparisons;
+    		}
+    	}
+    	
+    	//initialise random number generator
+    	Random randGenerator = new Random();
+    	
+    	for(int i = minComparisons; i <= maxComparisons; i++) {
+    		int chosen = randGenerator.nextInt(this.getMovieList().size());
+    		if (this.getMovieList().get(chosen).getComparisons() <= i) {
+    			return this.getMovieList().get(chosen);
+    		}
+    	}
+    	
+    	return this.getMovieList().get(0);
+    }
+    
+    private void compareMovies() {
+    	Boolean makingComparisons = true;
+    	
+    	//initiate scanner
+    	scanner = new Scanner(System.in);
+    	
+    	while(makingComparisons = true) {
+    		
+    		Movie movie1 = generateRandomMovie();
+    		Movie movie2 = generateRandomMovie();
+    		
+    		String selectedOption = "exit";
+    		
+    		selectedOption = Input.nextString(scanner);
+    		
+    		//Act on user input
+			switch (selectedOption) {
+				case "1":
+					break;
+					
+				case "exit":
+			 		System.out.println("Exiting!");
+					makingComparisons = false;
+			 		break;
+			 		
+			 	default:
+			 		System.out.println("Invalid input! Please try again.");
+			 }
+    		
+    	}
+    	
     }
     
     public void run() {
     	 Boolean programRunning = true;
     	 
     	 //initiate scanner
-    	 Scanner scanner = new Scanner(System.in);
+    	 //Scanner scanner = new Scanner(System.in);
+    	 scanner = new Scanner(System.in);
     	 
 		 //Menu options array
 		 String[] mainMenu = {"View Movie Ranking", "Add Movie", "Make Comparisons", "Save", "Exit"};
@@ -86,9 +152,9 @@ public class MovieRanking {
 			 Output.printMenu(mainMenu);
 			 
 			 //Set default behaviour to avoid infinite loops
-			 String selectedOption = "Exit";
+			 String selectedOption = "exit";
 			 
-			 selectedOption = Input.selectMenuOption(mainMenu, scanner);
+			 selectedOption = Input.selectMainMenuOption(mainMenu, scanner);
 			 
 			 //Act on user input
 			 switch (selectedOption) {
@@ -107,6 +173,11 @@ public class MovieRanking {
 			 		break;
 			 		
 			 	case "compare":
+			 		if (this.getMovieList().size() >= 2) {
+			 			compareMovies();
+			 		} else {
+			 			System.out.println("You need at least 2 movies to compare! Add more movies.");
+			 		}
 			 		break;
 			 		
 			 	case "save":

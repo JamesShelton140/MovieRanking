@@ -49,7 +49,7 @@ public class Output {
 		      BufferedWriter bufferedWriter = new BufferedWriter(writer);
 		      for(int i = 0; i < movieArray.length; i++) {
 		    	  Movie movie = movieArray[i];
-		    	  bufferedWriter.write(movie.getTitle()+"%&"+movie.getYear()+"%&"+movie.getRating());
+		    	  bufferedWriter.write(movie.getTitle()+"%&"+movie.getYear()+"%&"+movie.getRating()+"%&"+movie.getComparisons());
 		    	  if (i+1 < movieArray.length) {
 		    		  bufferedWriter.newLine();
 		    	  }

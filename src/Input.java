@@ -17,7 +17,7 @@ public class Input {
 	        while(scanner.hasNextLine()){
 	            //read next role as "role number" and add to setupData as string array [role, number]
 	        	String[] details = scanner.nextLine().split("%&");
-	        	Movie movie = new Movie(details[0], Integer.parseInt(details[1]), Float.parseFloat(details[2]));
+	        	Movie movie = new Movie(details[0], Integer.parseInt(details[1]), Float.parseFloat(details[2]), Integer.parseInt(details[3]));
 	        	movieList.add(movie);
 	        }
 	        scanner.close();
@@ -29,7 +29,7 @@ public class Input {
         
 	}
 	
-	public static String selectMenuOption(String menu[], Scanner scanner) {
+	public static String selectMainMenuOption(String menu[], Scanner scanner) {
 		
 		//Get and parse user input
 		String selectedOption = nextString(scanner).toLowerCase();
