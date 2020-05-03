@@ -28,6 +28,10 @@ public class Output {
 	}
 	
 	public static void saveMovieList(ArrayList<Movie> movieList) {
+		//Sort movieList before saving to reduce sort actions in future and make movieList.sav readable directly.
+		Movie[] movieArray = movieList.toArray(new Movie[1]);
+		Arrays.sort(movieArray);
+		
 		try {
 		      File myObj = new File(".\\resources\\movieList.sav");
 		      if (myObj.createNewFile()) {
@@ -43,10 +47,10 @@ public class Output {
 		try {
 		      FileWriter writer = new FileWriter(".\\resources\\movieList.sav");
 		      BufferedWriter bufferedWriter = new BufferedWriter(writer);
-		      for(int i = 0; i < movieList.size(); i++) {
-		    	  Movie movie = movieList.get(i);
+		      for(int i = 0; i < movieArray.length; i++) {
+		    	  Movie movie = movieArray[i];
 		    	  bufferedWriter.write(movie.getTitle()+"%&"+movie.getYear()+"%&"+movie.getRating());
-		    	  if (i+1 < movieList.size()) {
+		    	  if (i+1 < movieArray.length) {
 		    		  bufferedWriter.newLine();
 		    	  }
 		      }

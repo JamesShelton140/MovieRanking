@@ -128,34 +128,10 @@ public class MovieRanking {
     }
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		/*
-		Movie movie1 = new Movie("Avengers: Endgame", 2019);
-		Movie movie2 = new Movie("Serenity", 2005);
-		
-		System.out.println(movie1);
-		System.out.println(movie2 );
-		
-		makeComparison(movie1, movie2, true);
-		
-		System.out.println(movie1);
-		System.out.println(movie2);
-		*/
-		
+
 		MovieRanking ranking = new MovieRanking();
 		ranking.run();
 		
-		/*
-		System.out.println(ranking.getMovieList());
-		
-		Input.loadMovieList(ranking.getMovieList());
-		
-		System.out.println(ranking.getMovieList());
-		
-		Output.saveMovieList(ranking.getMovieList());
-		
-		Output.printMovieList(ranking.getMovieList());
-		*/
 	}
 
 }
