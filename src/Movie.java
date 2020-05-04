@@ -70,7 +70,8 @@ public class Movie implements Comparable<Movie>{
 	 */
 	
 	public String toString() {
-		return this.getTitle() + " (" + this.getYear() + ")" + " " + (int)this.getRating();
+		return String.format("%-40s %5d", this.getTitle() + " (" + this.getYear() + ")", (int)this.getRating());
+		//return this.getTitle() + " (" + this.getYear() + ")" + " " + (int)this.getRating();
 	}
 	
 	@Override
